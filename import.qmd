@@ -6,10 +6,10 @@ importing data, viewing data, creating data, writing data
 
 This page covers how to import, view, and export data. Use the sidebar to navigate between different sections. The following packages are needed:
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
-For the R code on this page, we will need the `tidyverse` package, and potentially the `haven` package if you are dealing with stata `.dta`, SAS, or SPSS files.
+We will need the `tidyverse` package, and potentially the `haven` package if you are dealing with stata `.dta`, SAS, or SPSS files.
 
 ```{r}
 #| warning: false
@@ -22,6 +22,17 @@ library(haven)  # only needed if dealing with stata or sas files
 
 ## Python
 
+We will need the `pandas` package (and `os` package for working directory).
+
+```{python}
+#| warning: false
+#| message: false
+
+# packages needed:
+import os
+import pandas as pd
+```
+
 ## Julia
 :::
 
@@ -31,7 +42,7 @@ library(haven)  # only needed if dealing with stata or sas files
 
 Most often, we will have external data that we need to import in order to conduct anlaysis on.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 Before we import data, we need to tell our software where our data is stored by setting a directory. We can set the working directory with the `setwd()` function.
@@ -70,6 +81,38 @@ df = read_dta('data.dta')
 
 ## Python
 
+Before we import data, we need to tell our software where our data is stored by setting a directory. We can set the working directory with the `setwd()` function.
+
+```{python}
+#| eval: false
+
+os.chdir('[/Users/folder1/folder2]')  # put path to folder
+```
+
+You can get the path to any file on your computer as follows:
+
+-   Mac: open finder, go to your folder. Then click view on the top bar, select "show path bar". A path bar should appear on the bottom of your finder window. Then control + click (or right click) your folder in the path bar, and click 'copy "foldername" as path name".
+-   Windows: right click your folder, click "copy as path".
+
+Load `.csv` files (comma seperated format, excel) into object `df`:
+
+```{python}
+#| warning: false
+#| message: false
+
+df = pd.read_csv('data.csv')
+```
+
+Load `.dta` files (stata format) into object `df`:
+
+```{python}
+#| warning: false
+#| message: false
+#| eval: false
+
+df = pd.read_stata('data.dta')
+```
+
 ## Julia
 :::
 
@@ -79,7 +122,7 @@ df = read_dta('data.dta')
 
 Before starting any data manipulation or analysis, it is useful to understand the structure of our data. We can do this by previewing the data.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 Using function `head()` to see the first few rows of the dataframe `df`:
@@ -91,7 +134,6 @@ Using function `head()` to see the first few rows of the dataframe `df`:
 #| message: false
 
 head(df)
-
 ```
 
 Using function `glimpse()` to see a summary of columns (variables) of `df`:
@@ -107,6 +149,28 @@ glimpse(df)
 
 ## Python
 
+Using function `.head()` to see the first few rows of the dataframe `df`:
+
+```{python}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+df.head()
+```
+
+Using function `.info()` to see a summary of columns (variables) of `df`:
+
+```{python}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+df.info()
+```
+
 ## Julia
 :::
 
@@ -116,7 +180,7 @@ glimpse(df)
 
 Once we complete data manipulation, we can export our data to our computer.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 We can export our data frame `df` to a `.csv` file using `write_csv()`:
@@ -137,6 +201,22 @@ df |> write_dta("filename.dta")  # export data to file called filename.dta
 ```
 
 ## Python
+
+We can export our data frame `df` to a `.csv` file using `.to_csv()`:
+
+```{python}
+#| eval: false
+
+df.to_csv('filename.csv') # export data to file called filename.csv
+```
+
+We can export our data frame `df` to a `.dta` (stata) file using `write_dta()`:
+
+```{python}
+#| eval: false
+
+df.to_stata('filename.dta') # export data to file called filename.dta
+```
 
 ## Julia
 :::

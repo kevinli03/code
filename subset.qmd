@@ -6,7 +6,7 @@ subseting data, filtering data
 
 This page covers how to subset data. Use the sidebar to navigate between different sections. The packages required are:
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 For the R code on this page, we will need the `dplyr` package.
@@ -31,6 +31,24 @@ df = readr::read_csv('data.csv')
 
 ## Python
 
+We will need the `pandas` package:
+
+```{python}
+#| warning: false
+#| message: false
+
+# packages needed:
+import pandas as pd
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+
+df = pd.read_csv('data.csv')
+```
+
 ## Julia
 :::
 
@@ -40,10 +58,10 @@ df = readr::read_csv('data.csv')
 
 Subsetting variables involves choosing only a subset of the variables from the original dataframe. For example, you have 10 variables, but you only need 4 for analysis.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
-To subset our data by only including some variables, use the `select()` function:
+To subset our data by only including some variables (columns), use the `select()` function:
 
 ```{r}
 #| comment: "#>"
@@ -59,6 +77,18 @@ new.df |> head()             # display first few obs
 
 ## Python
 
+To subset our data by including only some variables (columns), we use the following syntax:
+
+```{python}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+new_df = df[['gini', 'export', 'voc']]  # select variables
+new_df.head()                           # display first few obs
+```
+
 ## Julia
 :::
 
@@ -68,7 +98,7 @@ new.df |> head()             # display first few obs
 
 Filtering observations involves only keeping certain observations with certain values. For example, only keeping observations from the country of Canada.
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ## R
 
 We can filter for only observations that meet certain conditions with the `filter()` function. We input the condition within the `filter()` function to create a new dataframe `new.df` from our original `df`:
@@ -80,7 +110,7 @@ We can filter for only observations that meet certain conditions with the `filte
 #| message: false
 
 new.df = df |>
-  filter(countryname == "australia" | countryname == "belgium")  # keep obs from australia or belgium
+  filter(countryname == "belgium" | countryname == "canada")   # keep obs from australia or belgium
 
 new.df |> head()                                                 # display first few obs
 ```
@@ -90,8 +120,8 @@ We can have one condition, or multiple conditions. For multiple conditions, we s
 ```{r}
 #| eval: false
 
-countryname == "australia" | countryname == "belgium"  # OR operator |
-countryname == "australia" & voc == 1                   # AND operator &
+countryname == "belgium" | countryname == "canada"  # OR operator |
+countryname == "australia" & voc == 1               # AND operator &
 
 ```
 
@@ -109,6 +139,40 @@ The comparison operators in R are as follows:
 ```
 
 ## Python
+
+We can filter for only observations that meet certain conditions with the `.loc()` function. We input the condition within the `.loc()` function to create a new dataframe `new_df` from our original `df`:
+
+```{python}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+new_df = df.loc[(df['countryname'] == 'belgium') | (df['countryname'] == 'canada')]
+new_df.head()
+```
+
+We can have one condition, or multiple conditions. For multiple conditions, we should connect them with AND or OR operators:
+
+```{python}
+#| eval: false
+
+(df['countryname'] == 'belgium') | (df['countryname'] == 'canada')  # OR operator |
+(df['countryname'] == 'belgium') & (df['countryname'] == 'canada')  # AND operator &
+```
+
+The comparison operators in python are as follows:
+
+```{python}
+#| eval: false
+
+==  # equal
+!=  # not equal
+>   # greater than
+>=  # greater than or equal
+<   # less than
+<=  # less than or equal
+```
 
 ## Julia
 :::
