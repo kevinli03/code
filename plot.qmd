@@ -1,23 +1,7 @@
 # plotting {.unnumbered}
 
-#### box and whisker
-
-#### bar plots
+#### distributions
 
 #### scatterplots
 
-#### estimate plots
-
-with confidence intervals
-
-#### grid plots
-
-grids of multiple plots
-
-#### adding lines
-
-#### label graphs
-
-#### legends
-
-#### themes
+#### theming

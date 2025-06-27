@@ -59,8 +59,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./stats.html" rel="next">
-<link href="./import.html" rel="prev">
+<link href="./cleaning.html" rel="next">
+<link href="./subset.html" rel="prev">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -127,8 +127,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">objects</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./syntax.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">basic syntax</span></a>
+ <span class="menu-text">syntax</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -139,8 +145,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./subset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">subset data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">data wrangling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">data cleaning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -159,19 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./reg.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">linear models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ds.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">data science</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">econometrics</span></a>
+ <span class="menu-text">linear model</span></a>
   </div>
 </li>
     </ul>
@@ -184,11 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#subsetting-data" id="toc-subsetting-data" class="nav-link active" data-scroll-target="#subsetting-data">subsetting data</a></li>
-  <li><a href="#filtering-observations" id="toc-filtering-observations" class="nav-link" data-scroll-target="#filtering-observations">filtering observations</a></li>
-  <li><a href="#adding-variables" id="toc-adding-variables" class="nav-link" data-scroll-target="#adding-variables">adding variables</a></li>
-  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">missing values</a></li>
-  <li><a href="#variable-types" id="toc-variable-types" class="nav-link" data-scroll-target="#variable-types">variable types</a></li>
+  <li><a href="#adding-variables" id="toc-adding-variables" class="nav-link active" data-scroll-target="#adding-variables">adding variables</a></li>
   <li><a href="#merging-data" id="toc-merging-data" class="nav-link" data-scroll-target="#merging-data">merging data</a></li>
   </ul>
 </nav>
@@ -216,9 +218,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="small">
-<p>filtering and sorting, dealing with missing data, manipulating data</p>
+<p>adding variables, merging data</p>
 </div>
-<p>This page covers how to manipulate data. For importing data and basics of dataframes, see <a href="./import.html">here</a>. For data summary, see <a href="./stats.html">here</a>. Use the sidebar to navigate between different sections.</p>
+<p>This page covers how to manipulate data. Use the sidebar to navigate between different sections. The packages required are:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Julia</a></li></ul>
 <div class="tab-content">
@@ -239,29 +241,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><br></p>
-<section id="subsetting-data" class="level4">
-<h4 class="anchored" data-anchor-id="subsetting-data">subsetting data</h4>
-<p>Subsetting variables involves choosing only a subset of the variables from the original dataframe. For example, you have 10 variables, but you only need 4 for analysis.</p>
+<section id="adding-variables" class="level4">
+<h4 class="anchored" data-anchor-id="adding-variables">adding variables</h4>
+<p>We can add variables to our data frames.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Julia</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>To subset our data by only including some variables, use the <code>select()</code> function:</p>
+<p>We can create a new variable <code>newvar</code> with the <code>mutate()</code> function: You can assign any “rule” to create the new variable.</p>
+<ul>
+<li>We can use any operator like addition, subtraction, division, etc.</li>
+<li>We can also assign values based on <code>ifelse()</code> statements and other rules (see <a href="./syntax.html">basic syntax</a>).</li>
+</ul>
+<p>For example, we can assign <code>newvar</code> to equal <code>10</code> if <code>voc == 1</code>, and <code>20</code> otherwise:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>new.df <span class="ot">=</span> df <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gini, export, voc)  <span class="co"># select variables "gini", "export", "voc"</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> df <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">newvar =</span> <span class="fu">ifelse</span>(voc <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">20</span>))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>new.df <span class="sc">|&gt;</span> <span class="fu">head</span>()             <span class="co"># display first few obs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>newvar <span class="sc">|&gt;</span> <span class="fu">head</span>()           <span class="co"># we can see values of newvar here now</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 3</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    gini export   voc</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  33.1   18.2     0</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  33.1   19.9     0</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  33.1   20.2     0</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  33.1   20.1     0</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  35.4   23.0     0</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  35.4   19.8     0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20 20 20 20 20 20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -275,216 +274,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><br></p>
 </section>
-<section id="filtering-observations" class="level4">
-<h4 class="anchored" data-anchor-id="filtering-observations">filtering observations</h4>
-<p>Filtering observations involves only keeping certain observations with certain values. For example, only keeping observations from the country of Canada.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Julia</a></li></ul>
-<div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<p>We can filter for only observations that meet certain conditions with the <code>filter()</code> function. We input the condition within the <code>filter()</code> function to create a new dataframe <code>new.df</code> from our original <code>df</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>new.df <span class="ot">=</span> df <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countryname <span class="sc">==</span> <span class="st">"australia"</span> <span class="sc">|</span> countryname <span class="sc">==</span> <span class="st">"belgium"</span>)  <span class="co"># keep obs from australia or belgium</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>new.df <span class="sc">|&gt;</span> <span class="fu">head</span>()                                                 <span class="co"># display first few obs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 13</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      id countryid countryname countrycode  year   voc taxpercent corporatetax</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1         1 australia   aus          2004     0       30.1           30</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2         1 australia   aus          2005     0       29.8           30</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3         1 australia   aus          2006     0       29.3           30</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4         1 australia   aus          2007     0       29.4           30</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     5         1 australia   aus          2008     0       26.7           30</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6     6         1 australia   aus          2009     0       25.4           30</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 5 more variables: personaltax &lt;dbl&gt;, econglobal &lt;dbl&gt;, gini &lt;dbl&gt;,</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   socialexp &lt;dbl&gt;, export &lt;dbl&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p>We can have one condition, or multiple conditions. For multiple conditions, we should connect them with AND or OR operators:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>countryname <span class="sc">==</span> <span class="st">"australia"</span> <span class="sc">|</span> countryname <span class="sc">==</span> <span class="st">"belgium"</span>  <span class="co"># OR operator |</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>countryname <span class="sc">==</span> <span class="st">"australia"</span> <span class="sc">&amp;</span> voc <span class="sc">==</span> <span class="dv">1</span>                   <span class="co"># AND operator &amp;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The comparison operators in R are as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">==</span>  <span class="co"># equal</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="er">!=</span>  <span class="co"># not equal</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span>   <span class="co"># greater than</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;=</span>  <span class="co"># greater than or equal</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>   <span class="co"># less than</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;=</span>  <span class="co"># less than or equal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-
-</div>
-<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-
-</div>
-</div>
-</div>
-<p><br></p>
-</section>
-<section id="adding-variables" class="level4">
-<h4 class="anchored" data-anchor-id="adding-variables">adding variables</h4>
-<p>We can add variables to our data frames.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Julia</a></li></ul>
-<div class="tab-content">
-<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<p>We can create a new variable <code>newvar</code> with the <code>mutate()</code> function: You can assign any “rule” to create the new variable.</p>
-<ul>
-<li>We can use any operator like addition, subtraction, division, etc.</li>
-<li>We can also assign values based on <code>ifelse()</code> statements and other rules (see <a href="./syntax.html">basic syntax</a>).</li>
-</ul>
-<p>For example, we can assign <code>newvar</code> to equal <code>10</code> if <code>voc == 1</code>, and <code>20</code> otherwise:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> df <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">newvar =</span> <span class="fu">ifelse</span>(voc <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">20</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>newvar <span class="sc">|&gt;</span> <span class="fu">head</span>()           <span class="co"># we can see values of newvar here now</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20 20 20 20 20 20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-
-</div>
-<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
-
-</div>
-</div>
-</div>
-<p><br></p>
-</section>
-<section id="missing-values" class="level4">
-<h4 class="anchored" data-anchor-id="missing-values">missing values</h4>
-<p>Missing values are often present in data. These can cause issues with estimation and models, so we need some way of identifying and getting rid of them.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Julia</a></li></ul>
-<div class="tab-content">
-<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<p>Missing values are coded as <code>NA</code> or <code>NaN</code> in dataframes.</p>
-<p>To detect missing values, we can use the <code>is.na()</code> function. This function detects if there is a missing value in each position of a dataframe or vector, and outputs a <code>TRUE</code> or <code>FALSE</code>, with <code>TRUE</code> indicating a missing value.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(df<span class="sc">$</span>voc) <span class="sc">|&gt;</span> <span class="fu">head</span>()  <span class="co"># head() to avoid long output, you do not need head()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p>We can replace any NAs with an if-else statement. For example, we might want to replace any <code>NA</code> in variable <code>voc</code> with the value <code>0</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">test  =</span> <span class="fu">is.na</span>(df<span class="sc">$</span>voc) <span class="sc">==</span> <span class="cn">TRUE</span>,  <span class="co"># check if obs is a NA</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">yes   =</span> <span class="dv">0</span>,                      <span class="co"># if it is NA, replace with 0</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">no    =</span> df<span class="sc">$</span>voc                  <span class="co"># if not NA, keep original voc value</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We can also omit any observations with <code>NA</code> values from the dataframe or vector of interest with the <code>na.omit()</code> function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">na.omit</span>(df)  <span class="co"># omit any observation with NA value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-
-</div>
-<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
-
-</div>
-</div>
-</div>
-<p><br></p>
-</section>
-<section id="variable-types" class="level4">
-<h4 class="anchored" data-anchor-id="variable-types">variable types</h4>
-<p>It is important to ensure our variables are of the correct type, to ensure our analysis works as intended.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">Julia</a></li></ul>
-<div class="tab-content">
-<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
-<p>R variables can be of many different “types”, which operate differently in analysis.</p>
-<p>Numeric variables are any number, including decimals and negatives. We can coerce any variable into a numeric type with the <code>as.numeric()</code> function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert variable voc into numeric type</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">=</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>voc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Integer variables are variables that only take values of integers, i.e.&nbsp;whole numbers. We can coerce any variable into an integer type with the <code>as.integer()</code> function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert variable voc into integer type</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">=</span> <span class="fu">as.integer</span>(df<span class="sc">$</span>voc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Factor variables are variables that will be treated as categorical/binary variables in statistical analysis (ex. male/female, yes/no, country). We can coerce any variable into a factor type with the <code>as.factor()</code> function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert variable voc into factor type</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">=</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>voc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Character strings are variables that contain letters and symbols. We rarely wish to change other types into characters, but it is possible to coerce any variable into a character type with the <code>as.character()</code> function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert variable voc into factor type</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">=</span> <span class="fu">as.character</span>(df<span class="sc">$</span>voc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-
-</div>
-<div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
-
-</div>
-</div>
-</div>
-<p><br></p>
-</section>
 <section id="merging-data" class="level4">
 <h4 class="anchored" data-anchor-id="merging-data">merging data</h4>
 <p>We can merge dataframes together to form bigger dataframes for anlaysis. We can either merge together two dataframes with the same observations but different variables (column binding), or merge together two dataframes with the same variables but different observations (joining).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Julia</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Julia</a></li></ul>
 <div class="tab-content">
-<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>To merge two dataframes with different variables but the same observations (so merging columns), we can use the <code>cbind()</code> function. For example, here we have two dataframes, each with 3 variables, including <code>id</code> that indicates each observation. We can merge them together to form a new dataframe:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df1, <span class="dv">1</span>)               <span class="co"># look at df1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df1, <span class="dv">1</span>)               <span class="co"># look at df1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      id   voc  gini</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     0  33.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      id   voc  gini</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1     0  33.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df2, <span class="dv">1</span>)               <span class="co"># look at df2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df2, <span class="dv">1</span>)               <span class="co"># look at df2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      id export socialexp</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1   18.2      17.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      id export socialexp</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1   18.2      17.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>new.df <span class="ot">=</span> <span class="fu">cbind</span>(df1, df2)  <span class="co"># combine df1 and df2</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(new.df)              <span class="co"># see that df1 and df2 have combined</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>new.df <span class="ot">=</span> <span class="fu">cbind</span>(df1, df2)  <span class="co"># combine df1 and df2</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(new.df)              <span class="co"># see that df1 and df2 have combined</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id voc gini id export socialexp</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1   0 33.1  1 18.224    17.197</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2   0 33.1  2 19.854    16.660</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3   0 33.1  3 20.184    15.699</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  4   0 33.1  4 20.149    15.858</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  5   0 35.4  5 23.011    17.050</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  6   0 35.4  6 19.795    16.853</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   id voc gini id export socialexp</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1   0 33.1  1 18.224    17.197</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2   0 33.1  2 19.854    16.660</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3   0 33.1  3 20.184    15.699</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  4   0 33.1  4 20.149    15.858</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  5   0 35.4  5 23.011    17.050</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  6   0 35.4  6 19.795    16.853</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>The joining will be based on the shared variable between the two dataframes. This is usually an observation id.</p>
 <p>To merge two dataframes with the same variables but different observations (essentially joining more observations together), we can use the <code>full_join()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df1 has australia obs, df2 has belgium obs</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>new.df <span class="ot">=</span> <span class="fu">full_join</span>(df1, df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df1 has australia obs, df2 has belgium obs</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>new.df <span class="ot">=</span> <span class="fu">full_join</span>(df1, df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The joining will be done by the shared variables (columns).</p>
 </div>
-<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 
 </div>
-<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
 
 </div>
 </div>
@@ -917,13 +754,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./import.html" class="pagination-link" aria-label="manage data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">manage data</span>
+      <a href="./subset.html" class="pagination-link" aria-label="subset data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">subset data</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./stats.html" class="pagination-link" aria-label="summary stats">
-        <span class="nav-page-text">summary stats</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./cleaning.html" class="pagination-link" aria-label="data cleaning">
+        <span class="nav-page-text">data cleaning</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

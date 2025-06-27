@@ -4,23 +4,21 @@
 importing data, viewing data, creating data, writing data
 :::
 
-This page covers how to import, view, and export data, and basics of dataframes. Use the sidebar to navigate between different sections.
+This page covers how to import, view, and export data. Use the sidebar to navigate between different sections. The following packages are needed:
 
 ::: panel-tabset
 ## R
 
-For the R code on this page, we will need the `readr` package, and potentially the `haven` package if you are dealing with stata `.dta`, SAS, or SPSS files.
+For the R code on this page, we will need the `tidyverse` package, and potentially the `haven` package if you are dealing with stata `.dta`, SAS, or SPSS files.
 
 ```{r}
 #| warning: false
 #| message: false
 
 # packages needed:
-library(readr)
+library(tidyverse)
 library(haven)  # only needed if dealing with stata or sas files
 ```
-
-`readr` is part of the `tidyverse` package, so you can choose to load `tidyverse` instead.
 
 ## Python
 
@@ -31,7 +29,7 @@ library(haven)  # only needed if dealing with stata or sas files
 
 #### importing data
 
-We can import data from a variety of different file types.
+Most often, we will have external data that we need to import in order to conduct anlaysis on.
 
 ::: panel-tabset
 ## R
@@ -55,7 +53,6 @@ Load `.csv` files (comma seperated format, excel) into object `df`:
 ```{r}
 #| warning: false
 #| message: false
-#| eval: false
 
 df = read_csv('data.csv')
 ```
@@ -78,46 +75,9 @@ df = read_dta('data.dta')
 
 <br />
 
-#### creating dataframes
-
-We don't have to import data. We can also manually create data with vectors and matrices.
-
-::: panel-tabset
-## R
-
-We start off by creating [vectors](syntax.qmd#vectors), each vector being a variable.
-
-```{r}
-person = c(1:5)
-age = c(10,20,13,14,12)
-name = c("bob", "ana", "mia", "pop", "ben")
-```
-
-We then use the `data.frame()` function to join these vectors into a dataframe:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-df = data.frame(person, age, name)
-
-print(df)
-```
-
-We now have a dataframe.
-
-## Python
-
-## Julia
-:::
-
-<br />
-
 #### preview data
 
-Getting a brief overview of our data before we change/filter/select it.
+Before starting any data manipulation or analysis, it is useful to understand the structure of our data. We can do this by previewing the data.
 
 ::: panel-tabset
 ## R
@@ -134,7 +94,7 @@ head(df)
 
 ```
 
-Using function `summary()` to see a summary of columns (variables) of `df`:
+Using function `glimpse()` to see a summary of columns (variables) of `df`:
 
 ```{r}
 #| comment: "#>"
@@ -142,50 +102,8 @@ Using function `summary()` to see a summary of columns (variables) of `df`:
 #| warning: false
 #| message: false
 
-summary(df)
+glimpse(df)
 ```
-
-## Python
-
-## Julia
-:::
-
-<br />
-
-#### indexing
-
-Indexing allows us to select certain variables and elements within a dataframe, which allows us to perform operations on them.
-
-::: panel-tabset
-## R
-
-We can index for a specific variable (column) by using the syntax `df$variable`:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-print(df$age)
-```
-
-As `df$variable` is a vector, we can index like we did [previously](syntax.qmd#vectors).
-
-We can also index elements by row and column number. The syntax is given by `df[row, col]`. For example:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-df[2,]   # extract 2nd row
-df[,2]   # extract 2nd column
-df[2,2]  # exrtract the element at row = 2 and col = 2
-```
-
-We will discuss subsetting the data (extracting more than 1 row and 1 column) in [data wrangling](data.qmd).
 
 ## Python
 
@@ -196,7 +114,7 @@ We will discuss subsetting the data (extracting more than 1 row and 1 column) in
 
 #### export data
 
-Once we complete data manipulation, we can export our data
+Once we complete data manipulation, we can export our data to our computer.
 
 ::: panel-tabset
 ## R
@@ -216,24 +134,6 @@ We can export our data frame `df` to a `.dta` (stata) file using `write_dta()`:
 
 library(haven)
 df |> write_dta("filename.dta")  # export data to file called filename.dta
-```
-
-We can export our data to a `.sas7bdat` (SAS) file using `write_sas()`:
-
-```{r}
-#| eval: false
-
-library(haven)
-df |> write_sas("filename.sas7bdat")  # export data to file called filename.sas7bdat
-```
-
-We can export our data to a `.sav` (SPSS) file using `write_sav()`:
-
-```{r}
-#| eval: false
-
-library(haven)
-df |> write_sav("filename.sav")  # export data to file called filename.sav
 ```
 
 ## Python

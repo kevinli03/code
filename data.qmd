@@ -1,10 +1,10 @@
 # data wrangling {.unnumbered}
 
 ::: small
-filtering and sorting, dealing with missing data, manipulating data
+adding variables, merging data
 :::
 
-This page covers how to manipulate data. For importing data and basics of dataframes, see [here](import.qmd). For data summary, see [here](stats.qmd). Use the sidebar to navigate between different sections.
+This page covers how to manipulate data. Use the sidebar to navigate between different sections. The packages required are:
 
 ::: panel-tabset
 ## R
@@ -27,85 +27,6 @@ library(dplyr)
 #| warning: false
 
 df = readr::read_csv('data.csv')
-```
-
-## Python
-
-## Julia
-:::
-
-<br />
-
-#### subsetting data
-
-Subsetting variables involves choosing only a subset of the variables from the original dataframe. For example, you have 10 variables, but you only need 4 for analysis.
-
-::: panel-tabset
-## R
-
-To subset our data by only including some variables, use the `select()` function:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-new.df = df |>
-  select(gini, export, voc)  # select variables "gini", "export", "voc"
-
-new.df |> head()             # display first few obs
-```
-
-## Python
-
-## Julia
-:::
-
-<br />
-
-#### filtering observations
-
-Filtering observations involves only keeping certain observations with certain values. For example, only keeping observations from the country of Canada.
-
-::: panel-tabset
-## R
-
-We can filter for only observations that meet certain conditions with the `filter()` function. We input the condition within the `filter()` function to create a new dataframe `new.df` from our original `df`:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-new.df = df |>
-  filter(countryname == "australia" | countryname == "belgium")  # keep obs from australia or belgium
-
-new.df |> head()                                                 # display first few obs
-```
-
-We can have one condition, or multiple conditions. For multiple conditions, we should connect them with AND or OR operators:
-
-```{r}
-#| eval: false
-
-countryname == "australia" | countryname == "belgium"  # OR operator |
-countryname == "australia" & voc == 1                   # AND operator &
-
-```
-
-The comparison operators in R are as follows:
-
-```{r}
-#| eval: false
-
-==  # equal
-!=  # not equal
->   # greater than
->=  # greater than or equal
-<   # less than
-<=  # less than or equal
 ```
 
 ## Python
@@ -139,114 +60,6 @@ df = df |>
   mutate(newvar = ifelse(voc == 1, 10, 20))
 
 df$newvar |> head()           # we can see values of newvar here now
-```
-
-## Python
-
-## Julia
-:::
-
-<br />
-
-#### missing values
-
-Missing values are often present in data. These can cause issues with estimation and models, so we need some way of identifying and getting rid of them.
-
-::: panel-tabset
-## R
-
-Missing values are coded as `NA` or `NaN` in dataframes.
-
-To detect missing values, we can use the `is.na()` function. This function detects if there is a missing value in each position of a dataframe or vector, and outputs a `TRUE` or `FALSE`, with `TRUE` indicating a missing value.
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-is.na(df$voc) |> head()  # head() to avoid long output, you do not need head()
-```
-
-We can replace any NAs with an if-else statement. For example, we might want to replace any `NA` in variable `voc` with the value `0`:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-#| eval: false
-
-
-df$voc <- ifelse(
-  test  = is.na(df$voc) == TRUE,  # check if obs is a NA
-  yes   = 0,                      # if it is NA, replace with 0
-  no    = df$voc                  # if not NA, keep original voc value
-)
-```
-
-We can also omit any observations with `NA` values from the dataframe or vector of interest with the `na.omit()` function:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-#| eval: false
-
-df = na.omit(df)  # omit any observation with NA value
-```
-
-## Python
-
-## Julia
-:::
-
-<br />
-
-#### variable types
-
-It is important to ensure our variables are of the correct type, to ensure our analysis works as intended.
-
-::: panel-tabset
-## R
-
-R variables can be of many different "types", which operate differently in analysis.
-
-Numeric variables are any number, including decimals and negatives. We can coerce any variable into a numeric type with the `as.numeric()` function:
-
-```{r}
-#| eval: false
-
-# convert variable voc into numeric type
-df$voc = as.numeric(df$voc)
-```
-
-Integer variables are variables that only take values of integers, i.e. whole numbers. We can coerce any variable into an integer type with the `as.integer()` function:
-
-```{r}
-#| eval: false
-
-# convert variable voc into integer type
-df$voc = as.integer(df$voc)
-```
-
-Factor variables are variables that will be treated as categorical/binary variables in statistical analysis (ex. male/female, yes/no, country). We can coerce any variable into a factor type with the `as.factor()` function:
-
-```{r}
-#| eval: false
-
-# convert variable voc into factor type
-df$voc = as.factor(df$voc)
-```
-
-Character strings are variables that contain letters and symbols. We rarely wish to change other types into characters, but it is possible to coerce any variable into a character type with the `as.character()` function:
-
-```{r}
-#| eval: false
-
-# convert variable voc into factor type
-df$voc = as.character(df$voc)
 ```
 
 ## Python

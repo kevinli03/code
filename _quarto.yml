@@ -11,15 +11,16 @@ book:
     - text: "Welcome!"
       href: index.qmd
     - text: "---"
+    - objects.qmd
     - syntax.qmd
     - import.qmd
+    - subset.qmd
     - data.qmd
+    - cleaning.qmd
     - stats.qmd
     - plot.qmd
     - text: "---"
     - reg.qmd
-    - ds.qmd
-    - metrics.qmd
     
 
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>econometrics – Kevin’s Coding Resources</title>
+<title>subset data – Kevin’s Coding Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,12 +20,47 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./ds.html" rel="prev">
+<link href="./data.html" rel="next">
+<link href="./import.html" rel="prev">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -66,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./metrics.html">econometrics</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./subset.html">subset data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -92,8 +127,14 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">objects</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./syntax.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">basic syntax</span></a>
+ <span class="menu-text">syntax</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -104,8 +145,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./subset.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">subset data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">data wrangling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">data cleaning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -124,19 +177,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./reg.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">linear models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ds.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">data science</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./metrics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">econometrics</span></a>
+ <span class="menu-text">linear model</span></a>
   </div>
 </li>
     </ul>
@@ -149,11 +190,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#iv-estimator" id="toc-iv-estimator" class="nav-link active" data-scroll-target="#iv-estimator">iv estimator</a></li>
-  <li><a href="#reg-discontinuity" id="toc-reg-discontinuity" class="nav-link" data-scroll-target="#reg-discontinuity">reg discontinuity</a></li>
-  <li><a href="#did-twfe" id="toc-did-twfe" class="nav-link" data-scroll-target="#did-twfe">did twfe</a></li>
-  <li><a href="#did-event-study" id="toc-did-event-study" class="nav-link" data-scroll-target="#did-event-study">did event study</a></li>
-  <li><a href="#csdid" id="toc-csdid" class="nav-link" data-scroll-target="#csdid">csdid</a></li>
+  <li><a href="#subsetting-data" id="toc-subsetting-data" class="nav-link active" data-scroll-target="#subsetting-data">subsetting data</a></li>
+  <li><a href="#filtering-observations" id="toc-filtering-observations" class="nav-link" data-scroll-target="#filtering-observations">filtering observations</a></li>
   </ul>
 </nav>
     </div>
@@ -162,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">econometrics</h1>
+<h1 class="title">subset data</h1>
 </div>
 
 
@@ -179,20 +217,117 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="iv-estimator" class="level4">
-<h4 class="anchored" data-anchor-id="iv-estimator">iv estimator</h4>
+<div class="small">
+<p>subseting data, filtering data</p>
+</div>
+<p>This page covers how to subset data. Use the sidebar to navigate between different sections. The packages required are:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Julia</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>For the R code on this page, we will need the <code>dplyr</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>dplyr</code> is part of the <code>tidyverse</code> package, so you can choose to load <code>tidyverse</code> instead.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+
+</div>
+</div>
+</div>
+<p><br></p>
+<section id="subsetting-data" class="level4">
+<h4 class="anchored" data-anchor-id="subsetting-data">subsetting data</h4>
+<p>Subsetting variables involves choosing only a subset of the variables from the original dataframe. For example, you have 10 variables, but you only need 4 for analysis.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Julia</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>To subset our data by only including some variables, use the <code>select()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>new.df <span class="ot">=</span> df <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gini, export, voc)  <span class="co"># select variables "gini", "export", "voc"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>new.df <span class="sc">|&gt;</span> <span class="fu">head</span>()             <span class="co"># display first few obs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    gini export   voc</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  33.1   18.2     0</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  33.1   19.9     0</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  33.1   20.2     0</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  33.1   20.1     0</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  35.4   23.0     0</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  35.4   19.8     0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+
+</div>
+</div>
+</div>
+<p><br></p>
 </section>
-<section id="reg-discontinuity" class="level4">
-<h4 class="anchored" data-anchor-id="reg-discontinuity">reg discontinuity</h4>
-</section>
-<section id="did-twfe" class="level4">
-<h4 class="anchored" data-anchor-id="did-twfe">did twfe</h4>
-</section>
-<section id="did-event-study" class="level4">
-<h4 class="anchored" data-anchor-id="did-event-study">did event study</h4>
-</section>
-<section id="csdid" class="level4">
-<h4 class="anchored" data-anchor-id="csdid">csdid</h4>
+<section id="filtering-observations" class="level4">
+<h4 class="anchored" data-anchor-id="filtering-observations">filtering observations</h4>
+<p>Filtering observations involves only keeping certain observations with certain values. For example, only keeping observations from the country of Canada.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Julia</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>We can filter for only observations that meet certain conditions with the <code>filter()</code> function. We input the condition within the <code>filter()</code> function to create a new dataframe <code>new.df</code> from our original <code>df</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>new.df <span class="ot">=</span> df <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countryname <span class="sc">==</span> <span class="st">"australia"</span> <span class="sc">|</span> countryname <span class="sc">==</span> <span class="st">"belgium"</span>)  <span class="co"># keep obs from australia or belgium</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>new.df <span class="sc">|&gt;</span> <span class="fu">head</span>()                                                 <span class="co"># display first few obs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 13</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      id countryid countryname countrycode  year   voc taxpercent corporatetax</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     1         1 australia   aus          2004     0       30.1           30</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     2         1 australia   aus          2005     0       29.8           30</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3         1 australia   aus          2006     0       29.3           30</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     4         1 australia   aus          2007     0       29.4           30</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     5         1 australia   aus          2008     0       26.7           30</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6     6         1 australia   aus          2009     0       25.4           30</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 5 more variables: personaltax &lt;dbl&gt;, econglobal &lt;dbl&gt;, gini &lt;dbl&gt;,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   socialexp &lt;dbl&gt;, export &lt;dbl&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>We can have one condition, or multiple conditions. For multiple conditions, we should connect them with AND or OR operators:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>countryname <span class="sc">==</span> <span class="st">"australia"</span> <span class="sc">|</span> countryname <span class="sc">==</span> <span class="st">"belgium"</span>  <span class="co"># OR operator |</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>countryname <span class="sc">==</span> <span class="st">"australia"</span> <span class="sc">&amp;</span> voc <span class="sc">==</span> <span class="dv">1</span>                   <span class="co"># AND operator &amp;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The comparison operators in R are as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">==</span>  <span class="co"># equal</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="er">!=</span>  <span class="co"># not equal</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span>   <span class="co"># greater than</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;=</span>  <span class="co"># greater than or equal</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>   <span class="co"># less than</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;=</span>  <span class="co"># less than or equal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+
+</div>
+</div>
+</div>
+<p><br></p>
 
 
 </section>
@@ -620,11 +755,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ds.html" class="pagination-link" aria-label="data science">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">data science</span>
+      <a href="./import.html" class="pagination-link" aria-label="manage data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">manage data</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./data.html" class="pagination-link" aria-label="data wrangling">
+        <span class="nav-page-text">data wrangling</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

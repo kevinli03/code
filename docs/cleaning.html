@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>data science – Kevin’s Coding Resources</title>
+<title>data cleaning – Kevin’s Coding Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,13 +20,47 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./metrics.html" rel="next">
-<link href="./reg.html" rel="prev">
+<link href="./stats.html" rel="next">
+<link href="./data.html" rel="prev">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -67,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ds.html">data science</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning.html">data cleaning</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -93,8 +127,14 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">objects</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./syntax.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">basic syntax</span></a>
+ <span class="menu-text">syntax</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -105,8 +145,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./subset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">subset data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">data wrangling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">data cleaning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -125,19 +177,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./reg.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">linear models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ds.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">data science</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">econometrics</span></a>
+ <span class="menu-text">linear model</span></a>
   </div>
 </li>
     </ul>
@@ -150,10 +190,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#random-forest" id="toc-random-forest" class="nav-link active" data-scroll-target="#random-forest">random forest</a></li>
-  <li><a href="#pca" id="toc-pca" class="nav-link" data-scroll-target="#pca">pca</a></li>
-  <li><a href="#factor-anlaysis" id="toc-factor-anlaysis" class="nav-link" data-scroll-target="#factor-anlaysis">factor anlaysis</a></li>
-  <li><a href="#k-means-cluster" id="toc-k-means-cluster" class="nav-link" data-scroll-target="#k-means-cluster">k-means cluster</a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link active" data-scroll-target="#missing-values">missing values</a></li>
+  <li><a href="#variable-types" id="toc-variable-types" class="nav-link" data-scroll-target="#variable-types">variable types</a></li>
   </ul>
 </nav>
     </div>
@@ -162,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">data science</h1>
+<h1 class="title">data cleaning</h1>
 </div>
 
 
@@ -179,17 +217,106 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="random-forest" class="level4">
-<h4 class="anchored" data-anchor-id="random-forest">random forest</h4>
+<div class="small">
+<p>missing values, variable types</p>
+</div>
+<p>This page covers how to manipulate data. Use the sidebar to navigate between different sections. The packages required are:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Julia</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>For the R code on this page, we will need the <code>dplyr</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>dplyr</code> is part of the <code>tidyverse</code> package, so you can choose to load <code>tidyverse</code> instead.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+
+</div>
+</div>
+</div>
+<p><br></p>
+<section id="missing-values" class="level4">
+<h4 class="anchored" data-anchor-id="missing-values">missing values</h4>
+<p>Missing values are often present in data. These can cause issues with estimation and models, so we need some way of identifying and getting rid of them.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Julia</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Missing values are coded as <code>NA</code> or <code>NaN</code> in dataframes.</p>
+<p>To detect missing values, we can use the <code>is.na()</code> function. This function detects if there is a missing value in each position of a dataframe or vector, and outputs a <code>TRUE</code> or <code>FALSE</code>, with <code>TRUE</code> indicating a missing value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(df<span class="sc">$</span>voc) <span class="sc">|&gt;</span> <span class="fu">head</span>()  <span class="co"># head() to avoid long output, you do not need head()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>We can replace any NAs with an if-else statement. For example, we might want to replace any <code>NA</code> in variable <code>voc</code> with the value <code>0</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">test  =</span> <span class="fu">is.na</span>(df<span class="sc">$</span>voc) <span class="sc">==</span> <span class="cn">TRUE</span>,  <span class="co"># check if obs is a NA</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">yes   =</span> <span class="dv">0</span>,                      <span class="co"># if it is NA, replace with 0</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">no    =</span> df<span class="sc">$</span>voc                  <span class="co"># if not NA, keep original voc value</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also omit any observations with <code>NA</code> values from the dataframe or vector of interest with the <code>na.omit()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">na.omit</span>(df)  <span class="co"># omit any observation with NA value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+
+</div>
+</div>
+</div>
+<p><br></p>
 </section>
-<section id="pca" class="level4">
-<h4 class="anchored" data-anchor-id="pca">pca</h4>
-</section>
-<section id="factor-anlaysis" class="level4">
-<h4 class="anchored" data-anchor-id="factor-anlaysis">factor anlaysis</h4>
-</section>
-<section id="k-means-cluster" class="level4">
-<h4 class="anchored" data-anchor-id="k-means-cluster">k-means cluster</h4>
+<section id="variable-types" class="level4">
+<h4 class="anchored" data-anchor-id="variable-types">variable types</h4>
+<p>It is important to ensure our variables are of the correct type, to ensure our analysis works as intended.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Julia</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>R variables can be of many different “types”, which operate differently in analysis.</p>
+<p>Numeric variables are any number, including decimals and negatives. We can coerce any variable into a numeric type with the <code>as.numeric()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert variable voc into numeric type</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">=</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>voc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Integer variables are variables that only take values of integers, i.e.&nbsp;whole numbers. We can coerce any variable into an integer type with the <code>as.integer()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert variable voc into integer type</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">=</span> <span class="fu">as.integer</span>(df<span class="sc">$</span>voc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Factor variables are variables that will be treated as categorical/binary variables in statistical analysis (ex. male/female, yes/no, country). We can coerce any variable into a factor type with the <code>as.factor()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert variable voc into factor type</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">=</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>voc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Character strings are variables that contain letters and symbols. We rarely wish to change other types into characters, but it is possible to coerce any variable into a character type with the <code>as.character()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert variable voc into factor type</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>voc <span class="ot">=</span> <span class="fu">as.character</span>(df<span class="sc">$</span>voc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+
+</div>
+</div>
+</div>
+<p><br></p>
 
 
 </section>
@@ -617,13 +744,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./reg.html" class="pagination-link" aria-label="linear models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">linear models</span>
+      <a href="./data.html" class="pagination-link" aria-label="data wrangling">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">data wrangling</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./metrics.html" class="pagination-link" aria-label="econometrics">
-        <span class="nav-page-text">econometrics</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./stats.html" class="pagination-link" aria-label="summary stats">
+        <span class="nav-page-text">summary stats</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

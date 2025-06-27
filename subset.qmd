@@ -1,0 +1,116 @@
+# subset data {.unnumbered}
+
+::: small
+subseting data, filtering data
+:::
+
+This page covers how to subset data. Use the sidebar to navigate between different sections. The packages required are:
+
+::: panel-tabset
+## R
+
+For the R code on this page, we will need the `dplyr` package.
+
+```{r}
+#| warning: false
+#| message: false
+
+# packages needed:
+library(dplyr)
+```
+
+`dplyr` is part of the `tidyverse` package, so you can choose to load `tidyverse` instead.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+df = readr::read_csv('data.csv')
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### subsetting data
+
+Subsetting variables involves choosing only a subset of the variables from the original dataframe. For example, you have 10 variables, but you only need 4 for analysis.
+
+::: panel-tabset
+## R
+
+To subset our data by only including some variables, use the `select()` function:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+new.df = df |>
+  select(gini, export, voc)  # select variables "gini", "export", "voc"
+
+new.df |> head()             # display first few obs
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### filtering observations
+
+Filtering observations involves only keeping certain observations with certain values. For example, only keeping observations from the country of Canada.
+
+::: panel-tabset
+## R
+
+We can filter for only observations that meet certain conditions with the `filter()` function. We input the condition within the `filter()` function to create a new dataframe `new.df` from our original `df`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+new.df = df |>
+  filter(countryname == "australia" | countryname == "belgium")  # keep obs from australia or belgium
+
+new.df |> head()                                                 # display first few obs
+```
+
+We can have one condition, or multiple conditions. For multiple conditions, we should connect them with AND or OR operators:
+
+```{r}
+#| eval: false
+
+countryname == "australia" | countryname == "belgium"  # OR operator |
+countryname == "australia" & voc == 1                   # AND operator &
+
+```
+
+The comparison operators in R are as follows:
+
+```{r}
+#| eval: false
+
+==  # equal
+!=  # not equal
+>   # greater than
+>=  # greater than or equal
+<   # less than
+<=  # less than or equal
+```
+
+## Python
+
+## Julia
+:::
+
+<br />

@@ -1,9 +1,0 @@
-# data science {.unnumbered}
-
-#### random forest
-
-#### pca
-
-#### factor anlaysis
-
-#### k-means cluster

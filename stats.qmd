@@ -5,7 +5,3 @@
 #### summary stats table
 
 #### stats by group
-
-#### length and unique
-
-#### correlations

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>linear models – Kevin’s Coding Resources</title>
+<title>linear model – Kevin’s Coding Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,7 +25,6 @@ ul.task-list li input[type="checkbox"] {
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
-<link href="./ds.html" rel="next">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -66,7 +65,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./reg.html">linear models</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./reg.html">linear model</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -92,8 +91,14 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./objects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">objects</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./syntax.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">basic syntax</span></a>
+ <span class="menu-text">syntax</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -104,8 +109,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./subset.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">subset data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">data wrangling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">data cleaning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -124,19 +141,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./reg.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">linear models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ds.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">data science</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">econometrics</span></a>
+ <span class="menu-text">linear model</span></a>
   </div>
 </li>
     </ul>
@@ -144,25 +149,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#linear-model" id="toc-linear-model" class="nav-link active" data-scroll-target="#linear-model">linear model</a></li>
-  <li><a href="#logistic" id="toc-logistic" class="nav-link" data-scroll-target="#logistic">logistic</a></li>
-  <li><a href="#poisson" id="toc-poisson" class="nav-link" data-scroll-target="#poisson">poisson</a></li>
-  <li><a href="#negative-binomial" id="toc-negative-binomial" class="nav-link" data-scroll-target="#negative-binomial">negative binomial</a></li>
-  <li><a href="#specification" id="toc-specification" class="nav-link" data-scroll-target="#specification">specification</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">linear models</h1>
+<h1 class="title">linear model</h1>
 </div>
 
 
@@ -179,23 +174,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="linear-model" class="level4">
-<h4 class="anchored" data-anchor-id="linear-model">linear model</h4>
-</section>
-<section id="logistic" class="level4">
-<h4 class="anchored" data-anchor-id="logistic">logistic</h4>
-</section>
-<section id="poisson" class="level4">
-<h4 class="anchored" data-anchor-id="poisson">poisson</h4>
-</section>
-<section id="negative-binomial" class="level4">
-<h4 class="anchored" data-anchor-id="negative-binomial">negative binomial</h4>
-</section>
-<section id="specification" class="level4">
-<h4 class="anchored" data-anchor-id="specification">specification</h4>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -618,15 +598,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="./ds.html" class="pagination-link" aria-label="data science">
-        <span class="nav-page-text">data science</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
