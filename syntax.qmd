@@ -1,0 +1,23 @@
+# basic syntax {.unnumbered}
+
+::: small
+setting up packages, assignment and operations, if statements, for loops, functions
+:::
+
+#### installing packages
+
+#### loading packages
+
+#### working directory
+
+#### objects
+
+#### operations
+
+#### if statements
+
+#### if-else functions
+
+#### for loops
+
+#### functions

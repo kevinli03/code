@@ -1,0 +1,7 @@
+### Welcome! {.unnumbered}
+
+This is a repository of coding resources for myself (and anyone else who wants to use it). Since I am a political economist, most of these resources focus around tasks regarding econometrics, statistics, and (some) data science.
+
+The languages I include on here include **R**, **python**, and **julia**. This is being continuously updated - it is basically my code reference for stuff I am using right now.
+
+For R code relating to difference-in-differences or causal panel analysis, [see this repository](https://kevinli03.github.io/did/).

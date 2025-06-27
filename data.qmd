@@ -1,0 +1,410 @@
+# data wrangling {.unnumbered}
+
+::: small
+importing data, filtering and sorting, managing data
+:::
+
+This page covers how to import, manipulate, and manage data. For data summary, see here. Use the sidebar to navigate between different sections.
+
+::: panel-tabset
+## R
+
+For the R code on this page, we will need the `tidyverse` package.
+
+```{r}
+#| warning: false
+#| message: false
+
+# packages needed:
+library(tidyverse)
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### importing data
+
+We can import data from a variety of different file types.
+
+::: panel-tabset
+## R
+
+Load `.csv` files (comma seperated format) into object `df`:
+
+```{r}
+#| warning: false
+#| message: false
+
+df = read_csv('data.csv')
+```
+
+Load `.dta` files (stata format) into object `df`:
+
+```{r}
+#| warning: false
+#| message: false
+#| eval: false
+
+library(haven)
+df = read_dta('data.dta')
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### preview data
+
+Getting a brief overview of our data before we change/filter/select it.
+
+::: panel-tabset
+## R
+
+Using function `head()` to see the first few rows of the dataframe `df`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+head(df)
+
+```
+
+Using function `glimpse()` to see a summary of columns (variables) of `df`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+glimpse(df)
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### selecting variables
+
+Selection variables involves choosing only a subset of the variables from the original dataframe. For example, you have 10 variables, but you only need 4 for analysis.
+
+::: panel-tabset
+## R
+
+To select only 1 variable (the column vector) from dataframe `df` into new dataframe `new.df`, we use the following syntax:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+new.df = df$gini  # select variable "gini" from df
+
+head(new.df)      # display first few obs
+```
+
+We can also use this single variable selection to modify the values of the variable. Simply assign new values to the variable with the assignment operator `=` or `<-`.
+
+To select more than 1 variable, use the `select()` function:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+new.df = df |>
+  select(gini, export, voc)  # select variables "gini", "export", "voc"
+
+head(new.df)                 # display first few obs
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### filtering observations
+
+Filtering observations involves only keeping certain observations with certain values. For example, only keeping observations from the country of Canada.
+
+::: panel-tabset
+## R
+
+We can filter for only observations that meet certain conditions with the `filter()` function. We input the condition within the `filter()` function to create a new dataframe `new.df` from our original `df`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+new.df = df |>
+  filter(countryname == "australia")  # keep only observations from australia
+
+head(new.df)
+```
+
+We can have multiple conditions, combined with and/or statements.
+
+```{r}
+#| eval: false
+
+# filter with "and" condition: use &
+new.df = df |>
+  filter(countryname == "australia" & voc == 1)  # keep obs from australia that also are voc == 1
+
+# filter with "or" condition: use |
+new.df = df |>
+  filter(countryname == "australia" | countryname == "belgium")  # keep obs from australia or belgium
+```
+
+The comparison operators in R are as follows:
+
+```{r}
+#| eval: false
+
+==  # equal
+!=  # not equal
+>   # greater than
+>=  # greater than or equal
+<   # less than
+<=  # less than or equal
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### adding variables
+
+We can add variables to our data frames.
+
+::: panel-tabset
+## R
+
+We can create a new variable `newvar` with the `mutate()` function:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+df = df |>
+  mutate(newvar = gini + 10)  # create newvar, and make the values equal to gini + 10
+
+head(df$newvar)               # we can see values of newvar here now
+```
+
+You can assign any "rule" to create the new variable.
+
+-   Above, I did a simple of `gini + 10`, which takes the initial `gini` variable and adds 10 to each observation to create the new variable `newvar`.
+-   We can use any operator like addition, subtraction, division, etc.
+-   We can also assign values based on `ifelse()` statements and other rules (see control flow section).
+
+For example, we can assign `newvar` to equal `10` if `voc == 1`, and `20` otherwise:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+df = df |>
+  mutate(newvar = ifelse(voc == 1, 10, 20))
+
+head(df$newvar)         # we can see values of newvar here now
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### missing values
+
+Missing values are often present in data. These can cause issues with estimation and models, so we need some way of identifying and getting rid of them.
+
+::: panel-tabset
+## R
+
+Missing values are coded as `NA` or `NaN` in dataframes.
+
+To detect missing values, we can use the `is.na()` function. This function detects if there is a missing value in each position of a dataframe or vector, and outputs a `TRUE` or `FALSE`, with `TRUE` indicating a missing value.
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+# check for NAs in varaible voc of dataframe df
+is.na(df$voc) |> head()  # head() to avoid long output, you do not need head()
+```
+
+We can replace any NAs with an if-else statement. For example, we might want to replace any `NA` in variable `voc` with the value `0`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+#| eval: false
+
+
+df$voc <- ifelse(
+  test  = is.na(df$voc) == TRUE,  # check if obs is a NA
+  yes   = 0,                      # if it is NA, replace with 0
+  no    = df$voc                  # if not NA, keep original voc value
+)
+```
+
+We can also omit any observations with `NA` values from the dataframe or vector of interest with the `na.omit()` function:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+#| eval: false
+
+df = na.omit(df)  # omit any observation with NA value
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### variable types
+
+It is important to ensure our variables are of the correct type, to ensure our analysis works as intended.
+
+::: panel-tabset
+## R
+
+R variables can be of many different "types", which operate differently in analysis.
+
+Numeric variables are any number, including decimals and negatives. We can coerce any variable into a numeric type with the `as.numeric()` function:
+
+```{r}
+#| eval: false
+
+# convert variable voc into numeric type
+df$voc = as.numeric(df$voc)
+```
+
+Integer variables are variables that only take values of integers, i.e. whole numbers. We can coerce any variable into an integer type with the `as.integer()` function:
+
+```{r}
+#| eval: false
+
+# convert variable voc into integer type
+df$voc = as.integer(df$voc)
+```
+
+Factor variables are variables that will be treated as categorical/binary variables in statistical analysis (ex. male/female, yes/no, country). We can coerce any variable into a factor type with the `as.factor()` function:
+
+```{r}
+#| eval: false
+
+# convert variable voc into factor type
+df$voc = as.factor(df$voc)
+```
+
+Character strings are variables that contain letters and symbols. We rarely wish to change other types into characters, but it is possible to coerce any variable into a character type with the `as.character()` function:
+
+```{r}
+#| eval: false
+
+# convert variable voc into factor type
+df$voc = as.character(df$voc)
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### merging dataframes
+
+We can merge dataframes together to form bigger dataframes for anlaysis. We can either merge together two dataframes with the same observations but different variables (column binding), or merge together two dataframes with the same variables but different observations (joining).
+
+::: panel-tabset
+## R
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# split df's for cbind() demonstration
+df1 = df |>
+  select(id, voc, gini)
+
+df2 = df |>
+  select(id, export, socialexp)
+```
+
+To merge two dataframes with different variables but the same observations (so merging columns), we can use the `cbind()` function. For example, here we have two dataframes, each with 3 variables, including `id` that indicates each observation. We can merge them together to form a new dataframe:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+head(df1, 1)               # look at df1
+head(df2, 1)               # look at df2
+
+new.df = cbind(df1, df2)  # combine df1 and df2
+
+head(new.df)              # see that df1 and df2 have combined
+
+```
+
+The joining will be based on the shared variable between the two dataframes. This is usually an observation id.
+
+To merge two dataframes with the same variables but different observations (essentially joining more observations together), we can use the `full_join()` function:
+
+```{r}
+#| eval: false
+
+# df1 has australia obs, df2 has belgium obs
+new.df = full_join(df1, df2)
+```
+
+The joining will be done by the shared variables (columns).
+
+## Python
+
+## Julia
+:::
+
+<br />

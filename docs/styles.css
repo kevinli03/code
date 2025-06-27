@@ -1,0 +1,20 @@
+pre, code, .sourceCode {
+  font-size: 0.75rem;
+}
+.center-graph {
+  display: flex;
+  justify-content: center;
+}
+.small {
+  font-size: 0.8em;
+  color: #666;
+}
+.append {
+  font-size: 0.9em;
+}
+table {
+  font-size: 0.94em; /* Adjust the size as needed */
+}
+.bolder {
+  font-weight: 900;
+}

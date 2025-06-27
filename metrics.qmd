@@ -1,0 +1,17 @@
+# econometrics {.unnumbered}
+
+#### fixed effects
+
+#### iv estimator
+
+#### reg discontinuity
+
+#### did twfe
+
+#### did event study
+
+#### csdid
+
+#### arima
+
+#### garch
