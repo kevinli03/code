@@ -1,23 +1,231 @@
 # basic syntax {.unnumbered}
 
 ::: small
-setting up packages, assignment and operations, if statements, for loops, functions
+assignment and operations, if statements, for loops, functions
 :::
 
-#### installing packages
+This page contains basics of coding syntax, such as if-statements, for loops, and functions. Use the sidebar to navigate between different sections. No packages are required for this page.
 
-#### loading packages
-
-#### working directory
-
-#### objects
+<br />
 
 #### operations
 
+Operations allow us to manipulate objects and their values. Operations include assigning values to objects, and performing calculations on objects.
+
+::: panel-tabset
+## R
+
+In R, we assign objects a value using an assignment operator of `=` or `<-` (both work). For example, we can assign the object `x` to be equal to a value of `3`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+# both do the same thing
+x <- 3
+x = 3
+print(x)
+```
+
+We can use operations to modify these objects.
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+#| eval: false
+
+x + 1   # addition
+x - 1   # subtraction
+x * 2   # multiplication
+x / 2   # division
+x %% 2  # modulo (remainder after division)
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### vectors
+
+We can assign multiple values to an object using vectors. Vectors are the building block of most data analysis.
+
+::: panel-tabset
+## R
+
+We can assign multiple values to an object by using the `c()` concatenate function:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+#| results: hold
+
+x = c(1,3,5)                             # vector of length 3
+y = c(4:10)                              # creates vector of 4,5,6,7,...10
+z = c("Australia", "Belgium", "France")  # char string vector
+
+print(x)
+print(y)
+print(z)
+```
+
+Each element of a vector has a position. We can extract one element of the vector using indexing with brackets `[]`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+x[3]  # 3rd element of x
+```
+
+All elements within a vector must be of the same type.
+
+## Python
+
+## Julia
+:::
+
+<br />
+
 #### if statements
 
-#### if-else functions
+If-statements are core to programming. We ask the if-statement to evaluate a statement/condition. If that statement/condition is true, then we ask the code to do something. If it is not true, we ask the code to do something else.
+
+::: panel-tabset
+## R
+
+We can write an `if` statement. We can optionally have even more options with `else{}` and `else if{}` statements.
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+x = "hello"
+
+if (x == 8) {
+  print("yay")
+} else if (x == "hello") {
+  print("the second loop is true")
+} else {
+  print("the statement is not true")
+}
+```
+
+R also has an `ifelse()` function, which is vectorised, and can be useful within data manipulation of variable vectors.
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+x = ifelse(
+  test  = x == "hello",  # condition
+  yes   = 8,             # what to do if condition is true
+  no    = 0              # what to do if condition is false
+)
+print(x)
+```
+
+The conditions/statements within the `if{}` can have the following comparisons:
+
+```{r}
+#| eval: false
+
+==  # equal
+!=  # not equal
+>   # greater than
+>=  # greater than or equal
+<   # less than
+<=  # less than or equal
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
 
 #### for loops
 
+for loops allow us to repeat the same code multiple times for different inputs. It can be much more efficient than copy-pasting the same code over and over again for different inputs.
+
+::: panel-tabset
+## R
+
+First, we define the inputs we want to use in our loop by storing them in an object. Then, we tell R to run the loop for every input within our object.
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+num = c(1,3,5)  # inputs for the for loop
+
+for (i in num) {
+  print(i*2)
+}
+```
+
+We can see above, that we asked R to run `print(i*2)` for every element `i` within object `num`.
+
+## Python
+
+## Julia
+:::
+
+<br />
+
 #### functions
+
+Let us say you have some chunk of code you are using over and over again in your project. Instead of rewriting it every time you want to use it, you can instead create a function.
+
+::: panel-tabset
+## R
+
+Let us say I will frequently be needing to multiply two numbers (very simple example). Lets define a function `my.func()` that does this.
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+my.func = function(num1, num2) {
+  print(num1 * num2)
+}
+```
+
+This function has two arguments - `num1` and `num2`, that when calling the function, I will need to provide:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+my.func(num1 = 3, num2 = 4)
+```
+
+Obviously this function is very simple, but if you are repeating a task that takes many lines of code, doing this will allow you to avoid copy-pasting long lines of code every time.
+
+## Python
+
+## Julia
+:::
+
+<br />

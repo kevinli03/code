@@ -12,6 +12,7 @@ book:
       href: index.qmd
     - text: "---"
     - syntax.qmd
+    - import.qmd
     - data.qmd
     - stats.qmd
     - plot.qmd

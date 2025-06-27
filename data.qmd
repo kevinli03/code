@@ -1,22 +1,32 @@
 # data wrangling {.unnumbered}
 
 ::: small
-importing data, filtering and sorting, managing data
+filtering and sorting, dealing with missing data, manipulating data
 :::
 
-This page covers how to import, manipulate, and manage data. For data summary, see here. Use the sidebar to navigate between different sections.
+This page covers how to manipulate data. For importing data and basics of dataframes, see [here](import.qmd). For data summary, see [here](stats.qmd). Use the sidebar to navigate between different sections.
 
 ::: panel-tabset
 ## R
 
-For the R code on this page, we will need the `tidyverse` package.
+For the R code on this page, we will need the `dplyr` package.
 
 ```{r}
 #| warning: false
 #| message: false
 
 # packages needed:
-library(tidyverse)
+library(dplyr)
+```
+
+`dplyr` is part of the `tidyverse` package, so you can choose to load `tidyverse` instead.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+df = readr::read_csv('data.csv')
 ```
 
 ## Python
@@ -26,100 +36,14 @@ library(tidyverse)
 
 <br />
 
-#### importing data
+#### subsetting data
 
-We can import data from a variety of different file types.
-
-::: panel-tabset
-## R
-
-Load `.csv` files (comma seperated format) into object `df`:
-
-```{r}
-#| warning: false
-#| message: false
-
-df = read_csv('data.csv')
-```
-
-Load `.dta` files (stata format) into object `df`:
-
-```{r}
-#| warning: false
-#| message: false
-#| eval: false
-
-library(haven)
-df = read_dta('data.dta')
-```
-
-## Python
-
-## Julia
-:::
-
-<br />
-
-#### preview data
-
-Getting a brief overview of our data before we change/filter/select it.
+Subsetting variables involves choosing only a subset of the variables from the original dataframe. For example, you have 10 variables, but you only need 4 for analysis.
 
 ::: panel-tabset
 ## R
 
-Using function `head()` to see the first few rows of the dataframe `df`:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-head(df)
-
-```
-
-Using function `glimpse()` to see a summary of columns (variables) of `df`:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-glimpse(df)
-```
-
-## Python
-
-## Julia
-:::
-
-<br />
-
-#### selecting variables
-
-Selection variables involves choosing only a subset of the variables from the original dataframe. For example, you have 10 variables, but you only need 4 for analysis.
-
-::: panel-tabset
-## R
-
-To select only 1 variable (the column vector) from dataframe `df` into new dataframe `new.df`, we use the following syntax:
-
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-new.df = df$gini  # select variable "gini" from df
-
-head(new.df)      # display first few obs
-```
-
-We can also use this single variable selection to modify the values of the variable. Simply assign new values to the variable with the assignment operator `=` or `<-`.
-
-To select more than 1 variable, use the `select()` function:
+To subset our data by only including some variables, use the `select()` function:
 
 ```{r}
 #| comment: "#>"
@@ -130,7 +54,7 @@ To select more than 1 variable, use the `select()` function:
 new.df = df |>
   select(gini, export, voc)  # select variables "gini", "export", "voc"
 
-head(new.df)                 # display first few obs
+new.df |> head()             # display first few obs
 ```
 
 ## Python
@@ -156,23 +80,19 @@ We can filter for only observations that meet certain conditions with the `filte
 #| message: false
 
 new.df = df |>
-  filter(countryname == "australia")  # keep only observations from australia
+  filter(countryname == "australia" | countryname == "belgium")  # keep obs from australia or belgium
 
-head(new.df)
+new.df |> head()                                                 # display first few obs
 ```
 
-We can have multiple conditions, combined with and/or statements.
+We can have one condition, or multiple conditions. For multiple conditions, we should connect them with AND or OR operators:
 
 ```{r}
 #| eval: false
 
-# filter with "and" condition: use &
-new.df = df |>
-  filter(countryname == "australia" & voc == 1)  # keep obs from australia that also are voc == 1
+countryname == "australia" | countryname == "belgium"  # OR operator |
+countryname == "australia" & voc == 1                   # AND operator &
 
-# filter with "or" condition: use |
-new.df = df |>
-  filter(countryname == "australia" | countryname == "belgium")  # keep obs from australia or belgium
 ```
 
 The comparison operators in R are as follows:
@@ -202,25 +122,10 @@ We can add variables to our data frames.
 ::: panel-tabset
 ## R
 
-We can create a new variable `newvar` with the `mutate()` function:
+We can create a new variable `newvar` with the `mutate()` function: You can assign any "rule" to create the new variable.
 
-```{r}
-#| comment: "#>"
-#| class-output: r
-#| warning: false
-#| message: false
-
-df = df |>
-  mutate(newvar = gini + 10)  # create newvar, and make the values equal to gini + 10
-
-head(df$newvar)               # we can see values of newvar here now
-```
-
-You can assign any "rule" to create the new variable.
-
--   Above, I did a simple of `gini + 10`, which takes the initial `gini` variable and adds 10 to each observation to create the new variable `newvar`.
 -   We can use any operator like addition, subtraction, division, etc.
--   We can also assign values based on `ifelse()` statements and other rules (see control flow section).
+-   We can also assign values based on `ifelse()` statements and other rules (see [basic syntax](syntax.qmd)).
 
 For example, we can assign `newvar` to equal `10` if `voc == 1`, and `20` otherwise:
 
@@ -233,7 +138,7 @@ For example, we can assign `newvar` to equal `10` if `voc == 1`, and `20` otherw
 df = df |>
   mutate(newvar = ifelse(voc == 1, 10, 20))
 
-head(df$newvar)         # we can see values of newvar here now
+df$newvar |> head()           # we can see values of newvar here now
 ```
 
 ## Python
@@ -260,7 +165,6 @@ To detect missing values, we can use the `is.na()` function. This function detec
 #| warning: false
 #| message: false
 
-# check for NAs in varaible voc of dataframe df
 is.na(df$voc) |> head()  # head() to avoid long output, you do not need head()
 ```
 
@@ -352,7 +256,7 @@ df$voc = as.character(df$voc)
 
 <br />
 
-#### merging dataframes
+#### merging data
 
 We can merge dataframes together to form bigger dataframes for anlaysis. We can either merge together two dataframes with the same observations but different variables (column binding), or merge together two dataframes with the same variables but different observations (joining).
 

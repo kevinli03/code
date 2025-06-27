@@ -1,1 +1,11 @@
-# regressions {.unnumbered}
+# linear models {.unnumbered}
+
+#### linear model
+
+#### logistic
+
+#### poisson
+
+#### negative binomial
+
+#### specification

@@ -1,0 +1,244 @@
+# manage data {.unnumbered}
+
+::: small
+importing data, viewing data, creating data, writing data
+:::
+
+This page covers how to import, view, and export data, and basics of dataframes. Use the sidebar to navigate between different sections.
+
+::: panel-tabset
+## R
+
+For the R code on this page, we will need the `readr` package, and potentially the `haven` package if you are dealing with stata `.dta`, SAS, or SPSS files.
+
+```{r}
+#| warning: false
+#| message: false
+
+# packages needed:
+library(readr)
+library(haven)  # only needed if dealing with stata or sas files
+```
+
+`readr` is part of the `tidyverse` package, so you can choose to load `tidyverse` instead.
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### importing data
+
+We can import data from a variety of different file types.
+
+::: panel-tabset
+## R
+
+Before we import data, we need to tell our software where our data is stored by setting a directory. We can set the working directory with the `setwd()` function.
+
+```{r}
+#| eval: false
+
+setwd("/Users/folder1/folder2")  # put path to folder in quotes
+
+```
+
+You can get the path to any file on your computer as follows:
+
+-   Mac: open finder, go to your folder. Then click view on the top bar, select "show path bar". A path bar should appear on the bottom of your finder window. Then control + click (or right click) your folder in the path bar, and click 'copy "foldername" as path name".
+-   Windows: right click your folder, click "copy as path".
+
+Load `.csv` files (comma seperated format, excel) into object `df`:
+
+```{r}
+#| warning: false
+#| message: false
+#| eval: false
+
+df = read_csv('data.csv')
+```
+
+Load `.dta` files (stata format) into object `df`:
+
+```{r}
+#| warning: false
+#| message: false
+#| eval: false
+
+# library(haven)
+df = read_dta('data.dta')
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### creating dataframes
+
+We don't have to import data. We can also manually create data with vectors and matrices.
+
+::: panel-tabset
+## R
+
+We start off by creating [vectors](syntax.qmd#vectors), each vector being a variable.
+
+```{r}
+person = c(1:5)
+age = c(10,20,13,14,12)
+name = c("bob", "ana", "mia", "pop", "ben")
+```
+
+We then use the `data.frame()` function to join these vectors into a dataframe:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+df = data.frame(person, age, name)
+
+print(df)
+```
+
+We now have a dataframe.
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### preview data
+
+Getting a brief overview of our data before we change/filter/select it.
+
+::: panel-tabset
+## R
+
+Using function `head()` to see the first few rows of the dataframe `df`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+head(df)
+
+```
+
+Using function `summary()` to see a summary of columns (variables) of `df`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+summary(df)
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### indexing
+
+Indexing allows us to select certain variables and elements within a dataframe, which allows us to perform operations on them.
+
+::: panel-tabset
+## R
+
+We can index for a specific variable (column) by using the syntax `df$variable`:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+print(df$age)
+```
+
+As `df$variable` is a vector, we can index like we did [previously](syntax.qmd#vectors).
+
+We can also index elements by row and column number. The syntax is given by `df[row, col]`. For example:
+
+```{r}
+#| comment: "#>"
+#| class-output: r
+#| warning: false
+#| message: false
+
+df[2,]   # extract 2nd row
+df[,2]   # extract 2nd column
+df[2,2]  # exrtract the element at row = 2 and col = 2
+```
+
+We will discuss subsetting the data (extracting more than 1 row and 1 column) in [data wrangling](data.qmd).
+
+## Python
+
+## Julia
+:::
+
+<br />
+
+#### export data
+
+Once we complete data manipulation, we can export our data
+
+::: panel-tabset
+## R
+
+We can export our data frame `df` to a `.csv` file using `write_csv()`:
+
+```{r}
+#| eval: false
+
+df |> write_csv("filename.csv")  # export data to file called filename.csv
+```
+
+We can export our data frame `df` to a `.dta` (stata) file using `write_dta()`:
+
+```{r}
+#| eval: false
+
+library(haven)
+df |> write_dta("filename.dta")  # export data to file called filename.dta
+```
+
+We can export our data to a `.sas7bdat` (SAS) file using `write_sas()`:
+
+```{r}
+#| eval: false
+
+library(haven)
+df |> write_sas("filename.sas7bdat")  # export data to file called filename.sas7bdat
+```
+
+We can export our data to a `.sav` (SPSS) file using `write_sav()`:
+
+```{r}
+#| eval: false
+
+library(haven)
+df |> write_sav("filename.sav")  # export data to file called filename.sav
+```
+
+## Python
+
+## Julia
+:::
+
+<br />
